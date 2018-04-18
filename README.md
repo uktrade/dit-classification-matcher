@@ -1,5 +1,8 @@
 # DIT CPV, HS & Taric Mapping Service
 
+This service does one thing and this is to provide HS & TARIC codes from a CPV input.
+
+![Pass the butter](https://vignette.wikia.nocookie.net/rickandmorty/images/6/67/Butter_Robot_Picture.png/revision/latest?cb=20171106225602 "Butter Robot")
 
 We aim to follow [GDS service standards](https://www.gov.uk/service-manual/service-standard) and [GDS design principles](https://www.gov.uk/design-principles).
 
