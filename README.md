@@ -1,6 +1,6 @@
 # DIT CPV, HS & Taric Mapping Service
 
-This service does one thing and this is to provide HS & TARIC codes from a CPV input.
+This service does one thing and this is to provide HS & TARIC codes from a CPV input. Input data used is *HS2017* and *CPV2008*.
 
 ![Pass the butter](https://vignette.wikia.nocookie.net/rickandmorty/images/6/67/Butter_Robot_Picture.png/revision/latest?cb=20171106225602 "Butter Robot")
 
@@ -24,9 +24,23 @@ Run style checks with pep8. There is a custom, minimal pep8 configuration file.
 
 ### Endpoints
 
-There is a single usable endpoint at the moment, /api/v1/description/<CPVID>.
+There is a single usable endpoint at the moment, /api/v1/cpv/<CPVID>.
 
-There is also an endpoint listing all the CPV entries, /api/v1/descriptions.
+A sample request at _http://localhost:5000/api/v1/cpv/03141000_ will return:
+
+{
+  "cpv": {
+    "description": "Bulls' semen", 
+    "id": 3141000, 
+    "uri": "http://localhost:5000/api/v1/cpv/3141000"
+  }, 
+  "hs": {
+    "description": "051110 - Animal products; bovine semen", 
+    "id": "051110"
+  }
+}
+
+There is also an endpoint listing all the CPV entries, /api/v1/cpvs.
 
 ### License
 
