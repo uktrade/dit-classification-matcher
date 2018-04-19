@@ -2,9 +2,10 @@
 from flask import Flask, jsonify, abort, make_response, url_for
 import urllib
 import json
-
+from elasticsearch import Elasticsearch
 
 app = Flask(__name__, static_url_path="")
+es = Elasticsearch()
 
 
 @app.errorhandler(400)
@@ -25,23 +26,31 @@ def make_public_cpv(cpv):
     new_cpv = {}
     for field in cpv:
         if field == 'id':
+            new_cpv['id'] = cpv['id']
             new_cpv['uri'] = url_for('get_cpv', cpv_id=cpv['id'], _external=True)
         else:
             new_cpv[field] = cpv[field]
     return new_cpv
 
 
-@app.route('/api/v1/descriptions', methods=['GET'])
+@app.route('/api/v1/cpvs', methods=['GET'])
 def get_descriptions():
     return jsonify({'descriptions': map(make_public_cpv, descriptions)})
 
 
-@app.route('/api/v1/description/<int:cpv_id>', methods=['GET'])
+@app.route('/api/v1/cpv/<int:cpv_id>', methods=['GET'])
 def get_cpv(cpv_id):
     cpv = filter(lambda t: t['id'] == cpv_id, descriptions)
     if len(cpv) == 0:
         abort(404)
-    return jsonify({'cpv': make_public_cpv(cpv[0])})
+
+    res = es.search(index="hs_codes", q=cpv[0]['description'])
+
+    first_result = res['hits']['hits'][0]
+    hs_description = first_result['_source']['text']
+    hs_id = first_result['_source']['id']
+
+    return jsonify({'cpv': make_public_cpv(cpv[0]), 'hs': {'description': hs_description, 'id': hs_id}})
 
 if __name__ == '__main__':
     app.run(debug=True)
