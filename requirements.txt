@@ -1,2 +1,5 @@
 Flask==0.12.2
-
+requests==2.18.4
+elasticsearch==6.2.0
+requests_aws4auth==0.9
+gunicorn==0.14.2
