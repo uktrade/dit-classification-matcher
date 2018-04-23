@@ -1,0 +1,4 @@
+- name: dit-services-goods-classification-mapping-service
+  memory: 512M
+  instances: 1
+  buildpack: python_buildpack
