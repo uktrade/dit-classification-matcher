@@ -1,3 +1,5 @@
+---
+applications:
 - name: dit-classification-matcher
   memory: 512M
   instances: 1
