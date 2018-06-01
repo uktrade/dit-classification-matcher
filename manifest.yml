@@ -2,5 +2,4 @@
 applications:
 - name: dit-classification-matcher
   memory: 512M
-  instances: 1
   buildpack: python_buildpack
