@@ -3,3 +3,4 @@ applications:
 - name: dit-classification-matcher
   memory: 512M
   buildpack: python_buildpack
+  stack: cflinuxfs3
